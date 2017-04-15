@@ -11,8 +11,10 @@ main()
 	memset(buf, 'a', BSZ-2);
 	buf[BSZ-2] = '\0';
 	buf[BSZ-1] = 'X';
+
 	if ((fp = fmemopen(buf, BSZ, "w+")) == NULL)
 		err_sys("fmemopen failed");
+	
 	printf("initial buffer contents: %s\n", buf);
 	fprintf(fp, "hello, world");
 	printf("before flush: %s\n", buf);
