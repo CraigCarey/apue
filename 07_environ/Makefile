@@ -2,7 +2,7 @@ ROOT=..
 PLATFORM=$(shell $(ROOT)/systype.sh)
 include $(ROOT)/Make.defines.$(PLATFORM)
 
-PROGS = doatexit echoarg getrlimit hello1 testjmp
+PROGS = doatexit echoarg getrlimit hello1 testjmp environ
 
 all:	$(PROGS) opendata.o scope.o
 
