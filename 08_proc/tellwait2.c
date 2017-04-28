@@ -2,32 +2,39 @@
 
 static void charatatime(char *);
 
-int
-main(void)
+int main(void)
 {
-	pid_t	pid;
+	pid_t pid;
 
 	TELL_WAIT();
 
-	if ((pid = fork()) < 0) {
+	if ((pid = fork()) < 0)
+	{
 		err_sys("fork error");
-	} else if (pid == 0) {
-		WAIT_PARENT();		/* parent goes first */
+	}
+	else if (pid == 0)
+	{
+		/* parent goes first */
+		WAIT_PARENT();
 		charatatime("output from child\n");
-	} else {
+	}
+	else
+	{
 		charatatime("output from parent\n");
 		TELL_CHILD(pid);
 	}
+
 	exit(0);
 }
 
-static void
-charatatime(char *str)
+static void charatatime(char *str)
 {
-	char	*ptr;
-	int		c;
+	char *ptr;
+	int c;
 
-	setbuf(stdout, NULL);			/* set unbuffered */
+	/* set unbuffered */
+	setbuf(stdout, NULL);
+	
 	for (ptr = str; (c = *ptr++) != 0; )
 		putc(c, stdout);
 }

@@ -1,11 +1,10 @@
 #include "apue.h"
 #include <sys/wait.h>
 
-int
-main(void)
+int main(void)
 {
-	pid_t	pid;
-	int		status;
+	pid_t pid;
+	int status;
 
 	if ((pid = fork()) < 0)
 		err_sys("fork error");
