@@ -1,0 +1,17 @@
+abort.o
+child
+mask
+read1
+read2
+reenter
+sigtstp
+sigusr
+sleep1.o
+sleep2.o
+suspend1
+suspend2
+system.o
+systest2
+systest2.o
+tsleep2
+tsleep2.o

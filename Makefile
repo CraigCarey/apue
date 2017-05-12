@@ -1,5 +1,5 @@
 DIRS = lib 01_intro sockets advio daemons 06_datafiles db 07_environ \
-	03_fileio 04_filedir ipc1 ipc2 proc pty relation signals standards \
+	03_fileio 04_filedir ipc1 ipc2 08_proc pty 09_relation 10_signals standards \
 	05_stdio termios threadctl threads printer exercises
 
 all:
