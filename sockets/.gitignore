@@ -1,0 +1,14 @@
+clconn2.o
+clconn.o
+findsvc
+initsrv1.o
+initsrv2.o
+ruptime
+ruptimed
+ruptimed-dg
+ruptimed-dg.o
+ruptimed-fd
+ruptimed-fd.o
+ruptime-dg
+ruptimed.o
+ruptime.o

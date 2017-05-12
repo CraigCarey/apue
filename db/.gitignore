@@ -1,0 +1,6 @@
+db.o
+libapue_db.a
+libapue_db.so
+libapue_db.so.1
+t4
+t4.o

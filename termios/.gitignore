@@ -1,0 +1,11 @@
+csize
+ctermid.o
+getpass.o
+isatty.o
+settty
+t_getpass
+t_isatty
+t_raw
+t_ttyname
+ttyname.o
+winch
