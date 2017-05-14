@@ -3,7 +3,6 @@
 // lsof -i
 //   rot13d  2756 craig    3u  IPv4  25677      0t0  TCP *:1067 (LISTEN)
 // telnet localhost 1067
-
 #include <netinet/in.h>
 #include <netdb.h>
 #include <stdlib.h>
@@ -41,7 +40,7 @@ int main(void)
 {
 	struct sockaddr_in server;
 	server.sin_family = AF_INET;
-	server.sin_addr.s_addr = htonl(INADDR_ANY);
+	server.sin_addr.s_addr = htonl(INADDR_ANY);	// listen on all interfaces
 	server.sin_port = htons(SERVER_PORT);
 	
 	int server_socket = socket(AF_INET, SOCK_STREAM, 0);
