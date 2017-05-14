@@ -2,3 +2,7 @@ conf
 options
 pathopt.sym
 sysopt.sym
+conf.c
+options.c
+pathconf.sym
+sysconf.sym
