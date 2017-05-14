@@ -10,8 +10,7 @@ int main(void)
 	if (signal(SIGUSR2, sig_usr) == SIG_ERR)
 		err_sys("can't catch SIGUSR2");
 
-	int i = 0;
-	for (i; ;i++)
+	for (;;)
 	{
 		pause();
 	}

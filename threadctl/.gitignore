@@ -1,0 +1,6 @@
+atfork
+getenv1.o
+getenv2.o
+getenv3.o
+suspend
+timeout.o
