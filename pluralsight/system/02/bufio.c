@@ -1,27 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[])
 {
-    char *buffer;
-    int  size, count, i;
-    FILE *fd;
+	if (argc != 3)
+	{
+		printf("usage: %s blocksize blockcount\n", argv[0]);
+		exit(1);
+	}
 
-    if (argc != 3) {
-	printf("usage: %s blocksize blockcount\n", argv[0]);
-	exit(1);
-    }
+	int size  = atoi(argv[1]);
+	int count = atoi(argv[2]);
+	char *buffer = malloc(size);
 
-    fd = fopen("bufio.out", "w");
+	FILE *fd = fopen("bufio.out", "w");
+	
+	for (int i = 0; i < count; i++)
+	{
+		fwrite(buffer, size, 1, fd);
+	}
 
-    size  = atoi(argv[1]);
-    count = atoi(argv[2]);
-
-    buffer = malloc(size);
-
-    for (i=0; i<count; i++) {
-	fwrite(buffer, size, 1, fd);
-    }
-
-    close(fd);
+	fclose(fd);
 }

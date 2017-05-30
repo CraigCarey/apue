@@ -1,27 +1,26 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[])
 {
-    char *buffer;
-    int  fd, size, count, i;
+	if (argc != 3)
+	{
+		printf("usage: %s blocksize blockcount\n", argv[0]);
+		exit(1);
+	}
 
-    if (argc != 3) {
-	printf("usage: %s blocksize blockcount\n", argv[0]);
-	exit(1);
-    }
+	int size  = atoi(argv[1]);
+	int count = atoi(argv[2]);
+	char *buffer = malloc(size);
 
-    fd = open("rawio.out", O_WRONLY | O_CREAT | O_TRUNC, 0600);
+	int fd = open("rawio.out", O_WRONLY | O_CREAT | O_TRUNC, 0600);
 
-    size  = atoi(argv[1]);
-    count = atoi(argv[2]);
+	for (int i = 0; i < count; i++)
+	{
+		write(fd, buffer, size);
+	}
 
-    buffer = malloc(size);
-
-    for (i=0; i<count; i++) {
-	write(fd, buffer, size);
-    }
-
-    close(fd);
+	close(fd);
 }
