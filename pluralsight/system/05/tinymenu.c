@@ -1,17 +1,16 @@
-/* File tinymenu.c */
-
 #include <stdio.h>
 #include <unistd.h>
 
-void main()
+int main(void)
 {
-    static char *cmd[] = { "ps", "ls", "date", "goof" };
-    int i;
+	int i;
 
-    printf("0=ps, 1=ls, 2=date 3=goof : ");
-    scanf("%d", &i);
+	printf("0=ps, 1=ls, 2=date 3=goof : ");
+	scanf("%d", &i);
 
-    execlp(cmd[i], cmd[i], NULL );
+	static char *cmd[] = { "ps", "ls", "date", "goof" };
+	// path, command, argument list
+	execlp(cmd[i], cmd[i], NULL);
 
-    printf("command not found\n");
+	printf("command not found\n");
 }
