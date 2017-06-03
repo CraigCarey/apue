@@ -5,13 +5,15 @@
 
 int main(int argc, char*argv[])
 {
-  int i;
-  char *val;
+	char *val;
 
-  for (i=1; i< argc; i++) {
-    if ((val = getenv(argv[i])) != NULL)
-      printf("%s: %s\n", argv[i], val);
-    else
-      printf("%s: not in environment\n", argv[i]);
-  }
+	for (int i = 1; i< argc; i++)
+	{
+		if ((val = getenv(argv[i])) != NULL)
+			printf("%s: %s\n", argv[i], val);
+		else
+			printf("%s: not in environment\n", argv[i]);
+	}
+
+	return 0;
 }

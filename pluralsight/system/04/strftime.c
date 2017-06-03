@@ -1,19 +1,23 @@
-/* Simple demo of strftime */
-
+// Simple demo of strftime
 #include <stdio.h>
-#include <time.h>
+#include <time.h>		// time()
 #include <locale.h>
 
-int main()
+int main(void)
 {
-  time_t t;
-  struct tm *bdtime;
-  char buf[1000];
+	setlocale(LC_ALL, "");
 
-  setlocale(LC_ALL, "");
-  t = time(NULL);
-  bdtime = localtime(&t);
-  strftime(buf, 1000, "It is %H:%M on %A %d %B %Y", bdtime);
-  puts(buf);
+	// 32 bit int, seconds since the epoch (1/1/1970 UTC )
+	time_t t = time(NULL);
+
+	// broken-down time
+	// struct tm *	bdtime = gmtime(&t);	// GMT
+	struct tm *	bdtime = localtime(&t);		// local time
+
+	char buf[1000];
+	strftime(buf, 1000, "It is %H:%M on %A %d %B %Y", bdtime);
+	puts(buf);
+
+	return 0;
 }
 

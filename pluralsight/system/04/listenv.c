@@ -4,10 +4,12 @@
 
 extern char **environ;
 
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
-  char **p;
+	char **p;
 
-  for (p=environ; *p != NULL; p++)
-    printf("%s\n", *p);
+	for (p=environ; *p != NULL; p++)
+		printf("%s\n", *p);
+
+	return 0;
 }
