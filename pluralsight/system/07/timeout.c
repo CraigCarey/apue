@@ -1,43 +1,46 @@
-/* Demonstration of using SIGALRM to force a timeout */
-
 #include <stdio.h>
 #include <setjmp.h>
 #include <signal.h>
 #include <errno.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 void timeout_handler(int unused)
 {
-  /* Nothing to do */
+	// Nothing to do
 }
 
 int t_getnum(int timeout)
 {
-  int n;
-  char line[100];
-  struct sigaction action;
+	struct sigaction action;
+	action.sa_handler = timeout_handler;
+	sigemptyset(&action.sa_mask);
+	action.sa_flags = 0;  // Important!
+	sigaction(SIGALRM, &action, NULL);
 
-  action.sa_handler = timeout_handler;
-  sigemptyset(&action.sa_mask);
-  action.sa_flags = 0; /* Important! */
-  sigaction(SIGALRM, &action, NULL);
+	alarm(timeout);
+	char line[100];
+	int n = read(0, line, 100);
+	alarm(0);  // Cancel alarm
 
-  alarm(timeout);
-  n = read(0, line, 100);
-  alarm(0);  /* Cancel alarm */
-  if (n == -1 && errno == EINTR) return -1;
-  n = atoi(line);
-  return n;
+	if (n == -1 && errno == EINTR)
+		return -1;
+	
+	n = atoi(line);
+	
+	return n;
 }
 
-void main()
+int main(void)
 {
-  int num;
+	while(1)
+	{
+		printf("enter a number: "); fflush(stdout);
 
-  while(1) {
-    printf("enter a number: "); fflush(stdout);
-    if ((num = t_getnum(5)) == -1)
-      printf("timed out!\n");
-    else
-      printf("You entered %d\n", num);
-  }
+		int num;
+		if ((num = t_getnum(5)) == -1)
+			printf("timed out!\n");
+		else
+			printf("You entered %d\n", num);
+	}
 }

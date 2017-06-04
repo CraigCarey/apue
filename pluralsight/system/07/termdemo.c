@@ -3,26 +3,27 @@
 #include <string.h>
 #include <sys/wait.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-main()
+int main(void)
 {
-  int status;
-  int a, b, c;
+	// int a, b, c;
 
-  if (fork())
-  {
-    /* Parent */
-    wait (&status);
-    if (WIFEXITED(status))
-      printf("Child exited normally with exit status %d\n", WEXITSTATUS(status));
-    if (WIFSIGNALED(status))
-      printf("Child exited on signal %d: %s\n", WTERMSIG(status), strsignal(WTERMSIG(status)));
-  }
-  else
-  {
-    /* Child */
-    printf("Child PID = %d\n", getpid());
-    pause();
-    exit(5);
-  }
+	if (fork())
+	{
+		// Parent
+		int status;
+		wait (&status);
+		if (WIFEXITED(status))
+			printf("Child exited normally with exit status %d\n", WEXITSTATUS(status));
+		if (WIFSIGNALED(status))
+			printf("Child exited on signal %d: %s\n", WTERMSIG(status), strsignal(WTERMSIG(status)));
+	}
+	else
+	{
+		// Child
+		printf("Child PID = %d\n", getpid());
+		pause();
+		exit(5);
+	}
 }
