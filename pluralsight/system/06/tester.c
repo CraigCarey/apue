@@ -1,6 +1,7 @@
 #include <sys/stat.h>
+#include <stdio.h>
 
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
-  fopen("f2", "w");
+	fopen("f2", "w");
 }

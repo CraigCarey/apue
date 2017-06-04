@@ -1,36 +1,36 @@
-/* Approximation to the standard "id" program */
-
+// Approximation to the standard "id" program
 #include <stdio.h>
 #include <pwd.h>
 #include <grp.h>
+#include <unistd.h>
+#include <string.h>
 
-void main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
-  uid_t uid;
-  gid_t gid;
-  struct passwd *u;
-  struct group *g;
-  char *member;
+	uid_t uid = getuid();
+	printf("uid=%d", uid);
 
-  uid = getuid();
-  printf("uid=%d", uid);
+	struct passwd *u = getpwuid(uid);
+	printf("(%s) ", u->pw_name);
 
-  u = getpwuid(uid);
-  printf("(%s) ", u->pw_name);
+	gid_t gid = getgid();
+	printf("gid=%d", gid);
 
-  gid = getgid();
-  printf("gid=%d", gid);
+	struct group *g = getgrgid(gid);
+	printf("(%s) ", g->gr_name);
 
-  g = getgrgid(gid);
-  printf("(%s) ", g->gr_name);
+	printf("groups=");
+	
+	char *member;
 
-  printf("groups=");
+	// check each group to see if current user is a member
+	while ((g = getgrent()) != NULL)
+	{
+		// printf("%s\n", g->gr_name);
+		while((member = *(g->gr_mem)++) != NULL)
+			if (strcmp(member, u->pw_name) == 0)
+				printf("%d(%s),", g->gr_gid, g->gr_name);
+	}
 
-  while ((g = getgrent()) != NULL) {
-    // printf("%s\n", g->gr_name);
-    while((member = *(g->gr_mem)++) != NULL)
-      if (strcmp(member, u->pw_name) == 0)
-        printf("%d(%s),", g->gr_gid, g->gr_name);
-  }
-  printf("\n");
+	printf("\n");
 }
