@@ -10,13 +10,17 @@ void read_config_file(int signum)
 {
 	size_t len = 0;
 	char *line;
+
+	// echo -e "b\n10" > /tmp/reconfigure.conf
+	// echo -e "a\n5" > /tmp/reconfigure.conf
 	FILE *fd = fopen("/tmp/reconfigure.conf", "r");
 
+	// get character to print
 	getline(&line, &len, fd);
 	c = line[0];
 
-	getline(&line, &len, fd);
-	
+	// get number of times
+	getline(&line, &len, fd);	
 	count = atoi(line);
 	
 	printf("read char = %c and count = %d\n", c, count);

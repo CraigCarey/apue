@@ -28,6 +28,6 @@ int main(void)
 	// Accumulate text from stdin into buffer
 	int count;
 	p = buffer;
-	while((count = read(0, p, 200)))
+	while((count = read(STDIN_FILENO, p, 200)))
 		p += count;
 }

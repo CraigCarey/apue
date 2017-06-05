@@ -16,7 +16,7 @@ int main(void)
 {
 	signal(SIGINT, handler);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTERM, SIG_IGN);
+	// signal(SIGTERM, SIG_IGN);
 
 	while(1)
 	{

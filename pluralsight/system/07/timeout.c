@@ -15,14 +15,19 @@ int t_getnum(int timeout)
 	struct sigaction action;
 	action.sa_handler = timeout_handler;
 	sigemptyset(&action.sa_mask);
-	action.sa_flags = 0;  // Important!
+	
+	// don't restart system calls 
+	action.sa_flags = 0;
 	sigaction(SIGALRM, &action, NULL);
 
 	alarm(timeout);
 	char line[100];
 	int n = read(0, line, 100);
-	alarm(0);  // Cancel alarm
+	
+	// Cancel alarm
+	alarm(0);
 
+	// if we returned from the read because of a signal
 	if (n == -1 && errno == EINTR)
 		return -1;
 	

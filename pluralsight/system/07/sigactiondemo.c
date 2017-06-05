@@ -18,7 +18,8 @@ int main(void)
 	struct sigaction action;
 	action.sa_handler = myhandler;
 	sigemptyset(&action.sa_mask);
-	action.sa_flags = SA_RESTART;
+	// action.sa_flags = 0;			// system calls will return error
+	action.sa_flags = SA_RESTART;	// system calls will resume
 
 	sigaction(SIGINT, &action, NULL);
 

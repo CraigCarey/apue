@@ -7,8 +7,6 @@
 
 int main(void)
 {
-	// int a, b, c;
-
 	if (fork())
 	{
 		// Parent
@@ -23,7 +21,18 @@ int main(void)
 	{
 		// Child
 		printf("Child PID = %d\n", getpid());
+		
+		// cast zero to an int pointer and try to write to it
+		// to trigger a segfault
+		// *(int *)0 = 99;
+
+		// trigger a floating point exception
+		// int a = 1, b = 0, c = a/b;
+
+		// child will block on this call
 		pause();
+
+		sleep(3);
 		exit(5);
 	}
 }
