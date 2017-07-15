@@ -6,11 +6,11 @@
 #          as power.s -o power.o --32
 #          ld -m elf_i386 power.o -o power
 #
-
+ 
 
 .section .data
 # Everything in the main program is stored in registers,
-# so the data section doesn’t have anything.
+# so the data section doesn’t contain anything
 
 .section .text
 
@@ -86,6 +86,6 @@ power_loop_start:
 
 end_power:
  movl -4(%ebp), %eax    # return value goes in %eax
- movl %ebp, %esp        # restore the stack pointer
- popl %ebp              # restore the base pointer
+ movl %ebp, %esp        # restore the stack pointer (cleans local variables)
+ popl %ebp              # restore the base pointer (for previous calls) 
  ret
