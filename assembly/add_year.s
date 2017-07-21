@@ -4,8 +4,11 @@
 # Building:
 # as read_record.s -o read_record.o --32
 # as write_record.s -o write_record.o --32
+# as error_exit.s -o error_exit.o --32
+# as count_chars.s -o count_chars.o --32
+# as write_newline.s -o write_newline.o --32
 # as add_year.s -o add_year.o --32
-# ld -m elf_i386 add_year.o read_record.o write_record.o -o add_year 
+# ld -m elf_i386 read_record.o write_record.o error_exit.o count_chars.o write_newline.o add_year.o -o add_year 
 
  .section .data
 input_file_name:
@@ -37,6 +40,28 @@ _start:
  int $LINUX_SYSCALL
 
  movl %eax, ST_INPUT_DESCRIPTOR(%ebp)
+
+ # This will test and see if %eax is negative. If it is not
+ # negative, it will jump to continue_processing. Otherwise
+ # it will handle the error condition that the negative number
+ # represents
+ cmpl $0, %eax
+ jge continue_processing
+ 
+ # Send the error
+ .section .data
+no_open_file_code:
+ .ascii "0001: \0"
+
+no_open_file_msg:
+ .ascii "Can’t Open Input File\0"
+ 
+ .section .text
+ pushl $no_open_file_msg
+ pushl $no_open_file_code
+ call error_exit
+
+continue_processing:
  
  # Open file for writing
  movl $SYS_OPEN, %eax
