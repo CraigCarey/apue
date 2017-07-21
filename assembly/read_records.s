@@ -1,6 +1,14 @@
  .include "linux.s"
  .include "record_def.s"
 
+# BUILDING:
+#          as read_record.s -o read_record.o --32
+#          as count_chars.s -o count_chars.o --32
+#          as write_newline.s -o write_newline.o --32
+#          as read_records.s -o read_records.o --32
+#          ld -m elf_i386 read_record.o count_chars.o \
+#             write_newline.o read_records.o -o write_records
+
  .section .data
   file_name:
    .ascii "test.dat\0"
