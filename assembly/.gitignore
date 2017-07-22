@@ -11,3 +11,7 @@ read_records
 write_records
 add_year
 testout.dat
+hello_world_lib
+printf_example
+hello_world_no_lib
+librecord.so
